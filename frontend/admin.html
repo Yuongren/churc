@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/Logo2.png" type="image/jpeg">
+    <title>JCC CITY ALTAR - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>⚙️ Admin Panel</h1>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn">🌙</button>
+                <a href="index.html" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'messages')">📨 Messages</button>
+            <button class="tab-btn" onclick="switchTab(event, 'home-media')">🏠 Home Media</button>
+            <button class="tab-btn" onclick="switchTab(event, 'services-media')">📺 Services Media</button>
+        </div>
+
+        <div class="upload-progress">
+            <div id="upload-progress-bar"></div>
+        </div>
+        <!-- MESSAGES TAB -->
+        <div id="messages" class="tab-content active">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <h3>Total Messages</h3>
+                    <div class="number" id="total-count">0</div>
+                </div>
+            </div>
+
+            <div id="error-message" class="error" style="display: none;"></div>
+
+            <div class="controls">
+                <input type="text" id="search-box" class="search-box" placeholder="Search by name or email...">
+                <button class="btn-refresh" onclick="loadMessages()">🔄 Refresh</button>
+                <button class="btn-export" onclick="exportToCSV()">📥 Export CSV</button>
+            </div>
+
+            <div id="loading" class="loading" style="display: none;">
+                Loading messages...
+            </div>
+
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <h2>No Messages Yet</h2>
+                <p>Members haven't sent any messages yet.</p>
+            </div>
+
+            <table class="messages-table" id="messages-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="messages-body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- HOME MEDIA TAB -->
+        <div id="home-media" class="tab-content">
+            <div class="media-section">
+                <h3>📸 Home Page Media Upload</h3>
+                
+                <div class="upload-form">
+
+                    <h4>Upload New Media</h4>
+
+                    <label>Media Type:</label>
+                    <select id="home-media-type">
+                        <option value="image">Image</option>
+                        <option value="video">Video Link</option>
+                    </select>
+
+                    <label>Title:</label>
+                    <input type="text" id="home-media-title">
+
+                    <label>Description:</label>
+                    <textarea id="home-media-description"></textarea>
+
+                    <div id="home-image-wrapper">
+                        <label>Select Image:</label>
+                        <input type="file" id="home-media-file" accept="image/*">
+                    </div>
+
+                    <div id="home-video-wrapper" style="display:none;">
+                        <label>Video URL:</label>
+                        <input type="text" id="home-video-url" placeholder="Paste video link">
+                    </div>
+
+                    <button class="btn-upload" onclick="uploadMedia('home')">
+                        Upload to Home
+                    </button>
+
+                </div>
+
+                <div id="home-media-status" style="display: none;" class="loading"></div>
+
+                <h4 style="margin-top: 2rem;">Current Home Media</h4>
+                <div id="home-media-gallery" class="media-gallery"></div>
+            </div>
+        </div>
+
+        <!-- SERVICES MEDIA TAB -->
+        <div id="services-media" class="tab-content">
+            <div class="media-section">
+                <h3>📹 Services Media Upload</h3>
+                
+                <div class="upload-form">
+
+                        <h4>Upload New Media</h4>
+
+                        <label>Media Type:</label>
+                        <select id="services-media-type">
+                            <option value="image">Image</option>
+                            <option value="video">Video Link</option>
+                        </select>
+
+                        <label>Title:</label>
+                        <input type="text" id="services-media-title">
+
+                        <label>Description:</label>
+                        <textarea id="services-media-description"></textarea>
+
+                        <div id="services-image-wrapper">
+                            <label>Select Image:</label>
+                            <input type="file" id="services-media-file" accept="image/*">
+                        </div>
+
+                        <div id="services-video-wrapper" style="display:none;">
+                            <label>Video URL:</label>
+                            <input type="text" id="services-video-url" placeholder="Paste video link">
+                        </div>
+
+                        <button class="btn-upload" onclick="uploadMedia('services')">
+                            Upload to Services
+                        </button>
+
+                    </div>
+
+                <div id="services-media-status" style="display: none;" class="loading"></div>
+
+                <h4 style="margin-top: 2rem;">Current Services Media</h4>
+                <div id="services-media-gallery" class="media-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div class="modal" id="message-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Message Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-field">
+                <label>Name:</label>
+                <p id="modal-name"></p>
+            </div>
+            <div class="modal-field">
+                <label>Email:</label>
+                <p id="modal-email"></p>
+            </div>
+            <div class="modal-field">
+                <label>Subject:</label>
+                <p id="modal-subject"></p>
+            </div>
+            <div class="modal-field">
+                <label>Message:</label>
+                <p id="modal-message"></p>
+            </div>
+            <div class="modal-field">
+                <label>Received on:</label>
+                <p id="modal-date"></p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal-delete" onclick="deleteFromModal()">Delete Message</button>
+                <button class="btn-reply" onclick="replyFromModal()">Reply</button>
+                <button class="btn-modal-close" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Preview Modal -->
+    <div class="modal" id="media-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Media Preview</h2>
+                <button class="close-btn" onclick="closeMediaModal()">&times;</button>
+            </div>
+            <div style="text-align: center; padding: 2rem;">
+                <img id="media-preview-img" style="max-width: 100%; max-height: 60vh; border-radius: 8px; display: none;">
+                <iframe
+                    id="media-preview-video"
+                    style="width:100%; height:60vh; border-radius:8px; display:none;"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+        <!-- Edit Media Modal -->
+    <div class="modal" id="edit-media-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Media</h2>
+                <button class="close-btn" onclick="closeEditMediaModal()">&times;</button>
+            </div>
+            <form id="edit-media-form">
+                <div class="modal-field">
+                    <label>Title:</label>
+                    <input type="text" id="edit-media-title" required>
+                </div>
+                <div class="modal-field">
+                    <label>Description:</label>
+                    <textarea id="edit-media-description"></textarea>
+                </div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    <!-- <script>
+        const API_BASE = "https://churc.onrender.com";
+    </script> -->
+
+    <script>
+        window.API_BASE = "https://churc.onrender.com";
+    </script>
+
+    <script src="admin.js"></script>
+    <script src="admin-media.js"></script>
+
+    <script>
+        function switchTab(event, tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tab).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tab === 'home-media') loadMediaGallery('home');
+            else if (tab === 'services-media') loadMediaGallery('services');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Theme toggle
+            const toggleBtn = document.getElementById("theme-toggle");
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", () => {
+                    document.body.classList.toggle("light-mode");
+
+                    if (document.body.classList.contains("light-mode")) {
+                        toggleBtn.innerText = "☀️";
+                        localStorage.setItem("theme", "light");
+                    } else {
+                        toggleBtn.innerText = "🌙";
+                        localStorage.setItem("theme", "dark");
+                    }
+                });
+
+                const savedTheme = localStorage.getItem("theme");
+                if (savedTheme === "light") {
+                    document.body.classList.add("light-mode");
+                    toggleBtn.innerText = "☀️";
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

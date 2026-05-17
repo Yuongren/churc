@@ -1,0 +1,6 @@
+--2026-04-16 20:16:34--  https://update.code.visualstudio.com/commit:560a9dba96f961efea7b1612916f89e5d5d4d679/server-linux-x64/stable
+Resolving update.code.visualstudio.com (update.code.visualstudio.com)... 13.107.226.55, 13.107.253.55, 2620:1ec:29:1::55, ...
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|13.107.226.55|:443... failed: Connection timed out.
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|13.107.253.55|:443... failed: Connection timed out.
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|2620:1ec:29:1::55|:443... failed: Network is unreachable.
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|2620:1ec:48:1::55|:443... failed: Network is unreachable.

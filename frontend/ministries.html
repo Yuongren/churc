@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JCC CITY ALTAR - Ministries</title>
+    <link rel="icon" href="images/Logo2.png" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="images/Logo1.jpg" alt="Logo"></a>
+            <h3>JCC CITY ALTAR</h3>
+        </div> 
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="ministries.html">Ministries</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>            
+        </ul>
+        <button id="theme-toggle" class="theme-btn">🌙</button>
+    </nav>
+
+    <P>JCC CITY ALTAR</P>
+
+    <!-- HERO -->
+    <section class="ministries-hero" data-aos="fade-up">
+        <h1>Our Ministries</h1>
+        <p>Discover your place. Grow in faith. Serve with purpose.</p>
+    </section>
+
+    <!-- MINISTRIES -->
+    <section class="ministries">
+
+        <div class="ministry-grid">
+
+            <div class="ministry-card" data-aos="fade-up">
+                <i class="fas fa-music"></i>
+                <h3>Worship Ministry</h3>
+                <p>Leading the congregation into God's presence through praise and worship.</p>
+            </div>
+
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-pray"></i>
+                <h3>Prayer Ministry</h3>
+                <p>Dedicated to intercession and spiritual covering for the church and community.</p>
+            </div>
+
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-book-bible"></i>
+                <h3>Word Ministry</h3>
+                <p>Focused on teaching and spreading the Word of God with clarity and power.</p>
+            </div>
+
+            <div class="ministry-card" data-aos="fade-up">
+                <i class="fas fa-users"></i>
+                <h3>Youth Ministry</h3>
+                <p>Empowering young people to live boldly for Christ in today’s world.</p>
+            </div>
+
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-child"></i>
+                <h3>Children Ministry</h3>
+                <p>Raising a generation grounded in God's Word from an early age.</p>
+            </div>
+
+            <div class="ministry-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-hands-helping"></i>
+                <h3>Outreach Ministry</h3>
+                <p>Reaching out to the community with love, compassion, and the gospel.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="join-ministry" data-aos="zoom-in">
+        <h2>Get Involved</h2>
+        <p>There is a place for you in the house. Join a ministry and grow spiritually.</p>
+        <a href="contact.html" class="btn">Join a Ministry</a>
+    </section>
+
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <!-- Branding -->
+            <div class="footer-brand">
+                <h3>JCC CITY ALTAR</h3>
+                <p>A place of Word, Worship, Prayer, and Wonder.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="ministries.html">Ministries</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:cityaltarjccmedia@gmail.com">cityaltarjccmedia@gmail.com</a></p>
+                <p>WhatsApp: <a href="https://wa.me/254701316316" target="_blank">Chat with us</a></p>
+            </div>
+
+            <!-- Social Media -->
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/@jesuscelebrationcentrecity3939" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                    <a href="https://www.facebook.com/JCCCityAltar" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/jcc_city_altar/" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <a href="https://wa.me/254701316316" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer-bottom">
+            <p>© 2026 - JCC CITY ALTAR. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+
+    <script>
+        const toggleBtn = document.getElementById("theme-toggle");
+
+        toggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+
+            // change icon
+            if (document.body.classList.contains("light-mode")) {
+                toggleBtn.innerText = "☀️";
+                localStorage.setItem("theme", "light");
+            } else {
+                toggleBtn.innerText = "🌙";
+                localStorage.setItem("theme", "dark");
+            }
+        });
+
+        // LOAD SAVED THEME
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedTheme = localStorage.getItem("theme");
+
+            if (savedTheme === "light") {
+                document.body.classList.add("light-mode");
+                toggleBtn.innerText = "☀️";
+            }
+        });
+    </script>
+
+</body>
+</html>

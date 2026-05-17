@@ -1,0 +1,12 @@
+                                                                 Table "public.contacts"
+  Column   |           Type           | Collation | Nullable |               Default                | Storage  | Compression | Stats target | Description 
+-----------+--------------------------+-----------+----------+--------------------------------------+----------+-------------+--------------+-------------
+ id        | integer                  |           | not null | nextval('contacts_id_seq'::regclass) | plain    |             |              | 
+ name      | character varying(255)   |           | not null |                                      | extended |             |              | 
+ email     | character varying(255)   |           | not null |                                      | extended |             |              | 
+ message   | text                     |           | not null |                                      | extended |             |              | 
+ createdAt | timestamp with time zone |           |          |                                      | plain    |             |              | 
+Indexes:
+    "contacts_pkey" PRIMARY KEY, btree (id)
+Access method: heap
+
