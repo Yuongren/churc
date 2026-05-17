@@ -52,8 +52,7 @@ app.use("/uploads", express.static(uploadPath));
 // =========================
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/services", require("./routes/services"));
-
-// app.use("/api/media", require("./routes/media"));
+app.use("/api/media", require("./routes/media"));
 
 app.use("/api/media", mediaRoutes);
 
