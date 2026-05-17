@@ -99,8 +99,12 @@ router.post("/upload-meta", async (req, res) => {
 // =========================
 // UPDATE
 // =========================
-router.put("/:id", async (req, res) => {
-    res.json({ success: true });
+router.put("/:id", (req, res) => {
+    console.log("PUT route hit");
+    res.json({
+        success: true,
+        id: req.params.id
+    });
 });
 
 // =========================
