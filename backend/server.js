@@ -11,8 +11,6 @@ const app = express();
 
 const cloudinaryRoutes = require("./routes/cloudinary");
 
-const mediaRoutes = require("./routes/mediaRoutes");
-
 // =========================
 // MIDDLEWARE
 // =========================
@@ -53,8 +51,6 @@ app.use("/uploads", express.static(uploadPath));
 app.use("/api/contact", require("./routes/contact"));
 app.use("/api/services", require("./routes/services"));
 app.use("/api/media", require("./routes/media"));
-
-app.use("/api/media", mediaRoutes);
 
 // Test route
 app.get("/", (req, res) => {

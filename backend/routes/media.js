@@ -7,38 +7,6 @@ const Media = require("../models/Media");
 const auth = require("../middleware/auth");
 
 // =========================
-// CLOUDINARY STORAGE
-// =========================
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: "church-media",
-        resource_type: "auto", // supports image + video
-        public_id: (req, file) => {
-            return Date.now() + "-" + file.originalname;
-        }
-    }
-});
-
-const upload = multer({
-    storage,
-    limits: { fileSize: 500 * 1024 * 1024 } // 500MB
-});
-
-// =========================
-// GET SINGLE MEDIA
-// =========================
-router.get("/:id", async (req, res) => {
-    try {
-        const media = await Media.findByPk(req.params.id);
-        if (!media) return res.status(404).json({ error: "Media not found" });
-        res.json(media);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-// =========================
 // GET BY SECTION
 // =========================
 router.get("/section/:section", async (req, res) => {
@@ -47,9 +15,38 @@ router.get("/section/:section", async (req, res) => {
             where: { section: req.params.section },
             order: [["uploadedAt", "DESC"]]
         });
+
         res.json(media);
+
     } catch (err) {
-        res.status(500).json({ error: err.message });
+
+        res.status(500).json({
+            error: err.message
+        });
+    }
+});
+
+// =========================
+// GET SINGLE MEDIA
+// =========================
+router.get("/:id", async (req, res) => {
+    try {
+
+        const media = await Media.findByPk(req.params.id);
+
+        if (!media) {
+            return res.status(404).json({
+                error: "Media not found"
+            });
+        }
+
+        res.json(media);
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
     }
 });
 
