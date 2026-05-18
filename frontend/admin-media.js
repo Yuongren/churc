@@ -50,10 +50,14 @@ async function saveMediaEdits(event) {
         
         if (response.ok) {
             showToast('Media updated successfully!', 'success');
+
+            // store section BEFORE modal resets it
+            const section = currentEditingSection;
+
             closeEditMediaModal();
-            
-            // Refresh the gallery
-            loadMediaGallery(currentEditingSection);
+
+            // Refresh gallery
+            loadMediaGallery(section);
         } else {
             throw new Error('Failed to update media');
         }
@@ -307,8 +311,12 @@ async function loadMediaGallery(section) {
     const gallery =
         document.getElementById(`${section}-media-gallery`);
 
-    gallery.innerHTML = "Loading...";
+    if (!gallery) {
+        console.error(`Gallery not found for section: ${section}`);
+        return;
+    }
 
+    gallery.innerHTML = "Loading...";
     try {
 
         const response =
