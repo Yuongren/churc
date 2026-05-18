@@ -93,15 +93,48 @@ router.post("/upload-meta", async (req, res) => {
         });
     }
 });
+
+
 // =========================
-// UPDATE
+// UPDATE MEDIA
 // =========================
-router.put("/:id", (req, res) => {
-    console.log("PUT route hit");
-    res.json({
-        success: true,
-        id: req.params.id
-    });
+router.put("/:id", async (req, res) => {
+
+    try {
+
+        console.log("PUT ROUTE HIT");
+
+        const media = await Media.findByPk(req.params.id);
+
+        if (!media) {
+            return res.status(404).json({
+                error: "Media not found"
+            });
+        }
+
+        const {
+            title,
+            description
+        } = req.body;
+
+        media.title = title;
+        media.description = description;
+
+        await media.save();
+
+        res.json({
+            success: true,
+            media
+        });
+
+    } catch (err) {
+
+        console.error("UPDATE ERROR:", err);
+
+        res.status(500).json({
+            error: err.message
+        });
+    }
 });
 
 // =========================
